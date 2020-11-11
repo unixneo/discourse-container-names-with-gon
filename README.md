@@ -19,6 +19,10 @@ Refer To:
 
 https://community.unix.com/t/an-easy-way-to-setup-the-gon-gem-in-a-discourse-plugin/380693/2
 
+### INSTALL INSTRUCTIONS
+
+https://community.unix.com/t/discourse-plugin-discourse-container-names-with-gon/380701
+
 ## TODO
 
 - Fix issue when container info does update unless page is reloaded (computed property issue?)
