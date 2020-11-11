@@ -1,0 +1,12 @@
+plugins:
+  container_names_enabled:
+    default: false
+    client: false
+  container_main:
+    default: ""
+    client: ""
+    hidden: true
+  container_data:
+    default: ""
+    client: ""
+    hidden: true
