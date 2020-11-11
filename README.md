@@ -1,4 +1,4 @@
-# container-names
+# discourse-container-names-with-gon
 
 ### version 0.0.9.4
 
