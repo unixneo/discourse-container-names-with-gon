@@ -10,8 +10,6 @@ enabled_site_setting :container_names_enabled
 register_asset "stylesheets/common/container-names.scss"
 
 gem "gon", "6.2.0"
-# the below might be moved to the javascript init script to get
-# computed property to work?
 require "gon"
 
 after_initialize do
