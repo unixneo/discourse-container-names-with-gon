@@ -11,14 +11,19 @@ gem "gon", "6.2.0"
 require "gon"
 
 after_initialize do
-  if GlobalSetting.container_main.to_s.length > 1
-    Gon.global.container_main = GlobalSetting.container_main.dup
+  if defined?(GlobalSetting)
+    if GlobalSetting.container_main.to_s.length > 1
+      Gon.global.container_main = GlobalSetting.container_main.dup
+    else
+      Gon.global.container_main = "Enabled but unspecified."
+    end
+    if GlobalSetting.container_data.to_s.length > 1
+      Gon.global.container_data = GlobalSetting.container_data.dup
+    else
+      Gon.global.container_data = "Enabled but unspecified."
+    end
   else
-    Gon.global.container_main = "enabled but unspecified"
-  end
-  if GlobalSetting.container_data.to_s.length > 1
-    Gon.global.container_data = GlobalSetting.container_data.dup
-  else
-    Gon.global.container_data = "enabled but unspecified"
+    Gon.global.container_main = "No global settings"
+    Gon.global.container_data = "No global settings"
   end
 end
