@@ -1,8 +1,3 @@
 en:
   site_settings:
     container_names_enabled: "Enable container names plugin?"
-  js:
-    admin:
-      containers:
-        one: "<span class='category-name container-id'>Container: %{container_main}</span>"
-        other: "<span class='category-name container-id'>Containers: %{container_main}, %{container_data}</span>"
