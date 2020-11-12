@@ -1,3 +1,3 @@
 en_US:
   site_settings:
-    container_names_enabled: "Enable container names plugin?"
+    container_names_with_gon_enabled: "Enable container names plugin?"
