@@ -1,6 +1,6 @@
 # name: container-names-with-gon
 # about: plugin to add container names or ids from yml to backup page
-# version: 0.0.9.16
+# version: 0.0.9.17
 # date: 12 Nov 2020
 # authors: Neo
 # url: https://github.com/unixneo/discourse-container-names-with-gon
@@ -11,23 +11,18 @@ gem "gon", "6.2.0"
 require "gon"
 
 after_initialize do
-  if defined?(GlobalSetting.container_main)
-    if GlobalSetting.container_main.to_s.length > 1
-      Gon.global.container_main = GlobalSetting.container_main.dup
-    else
-      Gon.global.container_main = "Enabled but unspecified."
-    end
+  if ENV["DISCOURSE_CONTAINER_MAIN"].present?
+    container_main = ENV["DISCOURSE_CONTAINER_MAIN"]
   else
-    Gon.global.container_main = "No global container_main setting"
+    container_main = "DISCOURSE_CONTAINER_MAIN not set."
   end
 
-  if defined?(GlobalSetting.container_data)
-    if GlobalSetting.container_data.to_s.length > 1
-      Gon.global.container_data = GlobalSetting.container_data.dup
-    else
-      Gon.global.container_data = "Enabled but unspecified."
-    end
+  if ENV["DISCOURSE_CONTAINER_DATA"].present?
+    container_data = ENV["DISCOURSE_CONTAINER_DATA"]
   else
-    Gon.global.container_data = "No global container_data setting"
+    container_data = "DISCOURSE_CONTAINER_DATA not set."
   end
+
+  Gon.global.container_main = container_main
+  Gon.global.container_data = container_data
 end
