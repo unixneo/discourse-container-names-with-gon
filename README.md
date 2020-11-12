@@ -10,8 +10,10 @@ This Discourse plugin uses two environmental variables to show the names of cont
 
 - The container names or ids of the containers listed in the yml file for two env vars should be as follows:
 
+```
 DISCOURSE_CONTAINER_MAIN = "your_app_container_name"
 DISCOURSE_CONTAINER_DATA = "your_data_container_name"
+```
 
 ## REQUIRES GON GEM
 
