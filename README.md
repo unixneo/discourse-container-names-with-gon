@@ -6,12 +6,12 @@
 
 ### Live testing on https://community.unix.com/
 
-This Discourse plugin adds:
+This Discourse plugin uses two environmental variables to show the names of containers in the admin area:
 
-- The container names or ids of the containers listed in the yml file for two env vars:
+- The container names or ids of the containers listed in the yml file for two env vars should be as follows:
 
-1.  DISCOURSE_CONTAINER_MAIN
-2.  DISCOURSE_CONTAINER_DATA
+DISCOURSE_CONTAINER_MAIN = "your_app_container_name"
+DISCOURSE_CONTAINER_DATA = "your_data_container_name"
 
 ## REQUIRES GON GEM
 
@@ -25,8 +25,7 @@ https://community.unix.com/t/discourse-plugin-discourse-container-names-with-gon
 
 ## TODO
 
-- Fix issue when container info does update unless page is reloaded (computed property issue?)
-- Add / cleanup / fix I18N locale info for added `<span>` element.
+- Make the ENV variables more flexible.
 
 ## Version Info
 
