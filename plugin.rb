@@ -5,8 +5,6 @@
 # authors: Neo
 # url: https://github.com/unixneo/container-names
 
-#enabled_site_setting :container_names_with_gon_enabled
-
 register_asset "stylesheets/common/container-names.scss"
 
 gem "gon", "6.2.0"
