@@ -18,7 +18,7 @@ after_initialize do
       Gon.global.container_main = "Enabled but unspecified."
     end
   else
-    Gon.global.container_main = "No global settings"
+    Gon.global.container_main = "No global container_main setting"
   end
 
   if defined?(GlobalSetting.container_data)
@@ -28,6 +28,6 @@ after_initialize do
       Gon.global.container_data = "Enabled but unspecified."
     end
   else
-    Gon.global.container_data = "No global settings"
+    Gon.global.container_data = "No global container_data setting"
   end
 end
