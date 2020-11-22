@@ -24,7 +24,7 @@ after_initialize do
       Gon.global.container_data = container[2].chomp
     elsif container.size > 1
       Gon.global.container_main = container[1].chomp
-      Gon.global.container_data = ""
+      Gon.global.container_data = "unknown"
     else
       Gon.global.container_main = "unknown"
       Gon.global.container_data = "unknown"
