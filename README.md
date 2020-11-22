@@ -6,13 +6,19 @@
 
 ### Live testing on https://community.unix.com/
 
-This Discourse plugin uses two environmental variables to show the names of containers in the admin area:
+This Discourse plugin uses either (A) two environmental variables specified in the Discourse container ```yml``` file or (B) the Discourse system ```ENV["DATA_NAME"]``` environmental variable to show the names of the containers in the admin area:
 
-- The container names or ids of the containers listed in the yml file for two env vars should be as follows:
+If you wish to override  ```ENV["DATA_NAME"]``` then the container names or ids of the containers listed in the ```yml``` file for two env vars should be as follows:
 
 ```
 DISCOURSE_CONTAINER_MAIN = "your_app_container_name"
 DISCOURSE_CONTAINER_DATA = "your_data_container_name"
+```
+
+However, the two environmental variables above are not required because the container names are derived from another Discourse system environmental variable in this version of the plugin:  
+
+```
+ENV["DATA_NAME"]
 ```
 
 ## REQUIRES GON GEM
@@ -24,10 +30,6 @@ https://community.unix.com/t/an-easy-way-to-setup-the-gon-gem-in-a-discourse-plu
 ### INSTALL INSTRUCTIONS
 
 https://community.unix.com/t/discourse-plugin-discourse-container-names-with-gon/380701
-
-## TODO
-
-- Make the ENV variables more flexible.
 
 ## Version Info
 
