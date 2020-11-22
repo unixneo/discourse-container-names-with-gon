@@ -45,10 +45,9 @@ class GetPluginInfo
         end
       end
     end
+    Gon.global.container_main = container_main
+    Gon.global.container_data = container_data
   end
-
-  Gon.global.container_main = container_main
-  Gon.global.container_data = container_data
 end
 
 GetPluginInfo.new
