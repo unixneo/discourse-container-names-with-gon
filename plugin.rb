@@ -1,6 +1,6 @@
 # name: container-names-with-gon
 # about: plugin to add container names or ids from yml to backup page
-# version: 0.0.9.52
+# version: 0.0.9.53
 # date: 22s Nov 2020
 # authors: Neo
 # url: https://github.com/unixneo/discourse-container-names-with-gon
@@ -12,9 +12,9 @@ require "gon"
 
 Gon.global.test = "HELLO GON"
 
-app_root = "#{Rails.root}/plugins/discourse-container-names-with-gon/app"
+APP_ROOT = "#{Rails.root}/plugins/discourse-container-names-with-gon/app".freeze
 PLUGIN_NAME = "container-names-with-gon".freeze
-PLUGIN_LOGIC = "#{app_root}/lib/plugin_logic.rb"
+PLUGIN_LOGIC = "#{APP_ROOT}/lib/plugin_logic.rb".freeze
 
 after_initialize do
   load File.open(PLUGIN_LOGIC)

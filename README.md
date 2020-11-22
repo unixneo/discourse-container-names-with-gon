@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### version 0.0.9.52
+### version 0.0.9.53
 
 ## Current Status
 
@@ -31,7 +31,7 @@ https://community.unix.com/t/discourse-plugin-discourse-container-names-with-gon
 
 ## Version Info
 
-- v0.0.9.52: 22 November 2020 test new logic using ENV["DATA_NAME"] and 'df' extending Admin controller.
+- v0.0.9.53: 22 November 2020 test new logic using ENV["DATA_NAME"] and 'df' extending Admin controller.
 - v0.0.9.17: 12 November 2020 move logic to theme. Remove EmberJS code from plugin.
 - v0.0.9.4: 11 November 2020 remove SiteSetting (gon-gem branch)
 - v0.0.88: 10 November 2020 add gon gem (branch)
