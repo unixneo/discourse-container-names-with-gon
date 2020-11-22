@@ -2,8 +2,6 @@ class GetPluginInfo
   def initialize
     Gon.global.container_main = "initialize"
     Gon.global.container_data = "initialize"
-    container_main = "initialize"
-    container_data = "initialize"
     raw = `df | grep shared`
     if raw.length.present?
       df = raw.split(" ")
