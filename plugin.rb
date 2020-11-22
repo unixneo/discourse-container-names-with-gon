@@ -1,6 +1,6 @@
 # name: container-names-with-gon
 # about: plugin to add container names or ids from yml to backup page
-# version: 0.0.9.18
+# version: 0.0.9.2
 # date: 12 Nov 2020
 # authors: Neo
 # url: https://github.com/unixneo/discourse-container-names-with-gon
@@ -15,7 +15,7 @@ after_initialize do
   if df.size > 5
     Gon.global.diskspace = "#{df[5]}: #{df[4]}"
   else
-    Gon.global.diskspace = ""
+    Gon.global.diskspace = "TBD"
   end
   if ENV["DATA_NAME"].present?
     container = ENV["DATA_NAME"].split("/")
