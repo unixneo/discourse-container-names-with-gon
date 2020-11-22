@@ -15,16 +15,15 @@ Gon.global.test = "HELLO GON"
 PLUGIN_NAME = "container-names-with-gon".freeze
 
 after_initialize do
-
   Admin::AdminController.class_eval do
     before_action :do_info
-  
-    def :do_info
+
+    def do_info
       df = `df | grep shared`.split(" ")
       if df.size > 5
-      Gon.global.diskspace = "#{df[0]}  #{df[4]}  #{df[5]}"
+        Gon.global.diskspace = "#{df[0]}  #{df[4]}  #{df[5]}"
       else
-      Gon.global.diskspace = "unknown"
+        Gon.global.diskspace = "unknown"
       end
       if ENV["DATA_NAME"].present?
         container = ENV["DATA_NAME"].split("/")
@@ -45,7 +44,7 @@ after_initialize do
           container_main = "DISCOURSE_CONTAINER_MAIN not set."
         end
         if ENV["DISCOURSE_CONTAINER_DATA"].present?
-        container_data = ENV["DISCOURSE_CONTAINER_DATA"]
+          container_data = ENV["DISCOURSE_CONTAINER_DATA"]
         else
           container_data = "DISCOURSE_CONTAINER_DATA not set."
         end
