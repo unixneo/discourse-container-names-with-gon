@@ -1,19 +1,7 @@
-class GetPluginInfo
+class GetContainerInfo
   def initialize
     Gon.global.container_main = "initialize"
     Gon.global.container_data = "initialize"
-    raw = `df | grep shared`
-    if raw.length.present?
-      df = raw.split(" ")
-      if df.size > 5
-        Gon.global.diskspace = "#{df[0]}  #{df[4]}  #{df[5]}"
-      else
-        Gon.global.diskspace = "unknown"
-      end
-    else
-      Gon.global.diskspace = "unknown"
-    end
-
     if ENV["DISCOURSE_CONTAINER_MAIN"].present?
       if ENV["DISCOURSE_CONTAINER_MAIN"].present?
         container_main = ENV["DISCOURSE_CONTAINER_MAIN"]
@@ -48,4 +36,18 @@ class GetPluginInfo
   end
 end
 
-GetPluginInfo.new
+class GetDiskSpace
+  def initialize
+    raw = `df | grep shared`
+    if raw.length.present?
+      df = raw.split(" ")
+      if df.size > 5
+        Gon.global.diskspace = "#{df[0]}  #{df[4]}  #{df[5]}"
+      else
+        Gon.global.diskspace = "unknown"
+      end
+    else
+      Gon.global.diskspace = "unknown"
+    end
+  end
+end
