@@ -19,6 +19,7 @@ load File.open(PLUGIN_LOGIC)
 
 after_initialize do
   GetContainerInfo.new
+  GetDiskSpace.new
 
   Admin::AdminController.class_eval do
     before_action :do_info
