@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### version 0.0.9.58
+### version 0.1.0
 
 ## Current Status
 
@@ -21,6 +21,8 @@ However, the two environmental variables above are not required because the cont
 ENV["DATA_NAME"]
 ```
 
+In addition, this plugin displays partial disk space information using the ```df``` command inside the container.
+
 ## REQUIRES GON GEM
 
 Refer To:
@@ -33,7 +35,7 @@ https://community.unix.com/t/discourse-plugin-discourse-container-names-with-gon
 
 ## Version Info
 
-- v0.0.9.58: 23 Refactor lib classes.
+- v0.1.0: 23 Refactor lib classes.
 - v0.0.9.56: 22 November 2020 test new logic using ENV["DATA_NAME"] and 'df' extending Admin controller.
 - v0.0.9.17: 12 November 2020 move logic to theme. Remove EmberJS code from plugin.
 - v0.0.9.4: 11 November 2020 remove SiteSetting (gon-gem branch)
