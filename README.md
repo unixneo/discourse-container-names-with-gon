@@ -33,6 +33,10 @@ https://community.unix.com/t/an-easy-way-to-setup-the-gon-gem-in-a-discourse-plu
 
 https://community.unix.com/t/discourse-plugin-discourse-container-names-with-gon/380701
 
+### META DISCOURSE ANNOUNCEMENT
+
+https://meta.discourse.org/t/discourse-container-names-with-gon-for-sys-admins-and-developers/170973
+
 ## Version Info
 
 - v0.1.0: 23 Refactor lib classes.
