@@ -61,6 +61,6 @@ class GonLayoutChanges
     IO.foreach(head_file) do |line|
       IO.write(tmp_file, line, mode: "a")
     end
-    FileUtils.mv(tmpfile, head_file)
+    FileUtils.mv(tmp_file, head_file)
   end
 end
