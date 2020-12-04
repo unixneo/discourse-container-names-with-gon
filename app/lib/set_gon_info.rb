@@ -1,5 +1,5 @@
 class GetContainerInfo
-  def initialize
+  def self.names
     Gon.global.container_main = "initialize"
     Gon.global.container_data = "initialize"
     if ENV["DISCOURSE_CONTAINER_MAIN"].present?
@@ -34,10 +34,8 @@ class GetContainerInfo
     Gon.global.container_main = container_main
     Gon.global.container_data = container_data
   end
-end
 
-class GetDiskSpace
-  def initialize
+  def self.diskspace
     raw = `df | grep shared`
     if raw.length.present?
       df = raw.split(" ")
