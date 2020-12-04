@@ -39,7 +39,8 @@ https://meta.discourse.org/t/discourse-container-names-with-gon-for-sys-admins-a
 
 ## Version Info
 
-- v0.1.0: 23 Refactor lib classes.
+- v0.1.1: 4 December rename plugin.
+- v0.1.0: 23 November 2020 Refactor lib classes.
 - v0.0.9.56: 22 November 2020 test new logic using ENV["DATA_NAME"] and 'df' extending Admin controller.
 - v0.0.9.17: 12 November 2020 move logic to theme. Remove EmberJS code from plugin.
 - v0.0.9.4: 11 November 2020 remove SiteSetting (gon-gem branch)
