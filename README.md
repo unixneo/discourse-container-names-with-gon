@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### version 0.1.2
+### version 0.1.4
 
 ## Current Status
 
@@ -39,7 +39,7 @@ https://meta.discourse.org/t/discourse-container-names-with-gon-for-sys-admins-a
 
 ## Version Info
 
-- v0.1.2: 4 December rename plugin and move gon logic to plugin (not pups).
+- v0.1.4: 4 December rename plugin and move gon logic to plugin (not pups).
 - v0.1.0: 23 November 2020 Refactor lib classes.
 - v0.0.9.56: 22 November 2020 test new logic using ENV["DATA_NAME"] and 'df' extending Admin controller.
 - v0.0.9.17: 12 November 2020 move logic to theme. Remove EmberJS code from plugin.

@@ -55,12 +55,14 @@ end
 class GonLayoutChanges
   def self.add_gon_to_head
     head_file = "#{Rails.root}/app/views/layouts/_head.html.erb"
-    tmp_file = "/shared/tmp/work.tmp.txt"
-    gon_text = "<%= include_gon if defined? gon && gon.present? %>\n"
-    IO.write(tmp_file, gon_text)
-    IO.foreach(head_file) do |line|
-      IO.write(tmp_file, line, mode: "a")
+    if File.readlines(head_file).grep(/include_gon/).size < 1
+      tmp_file = "/shared/tmp/work.tmp.txt"
+      gon_text = "<%= include_gon if defined? gon && gon.present? %>\n"
+      IO.write(tmp_file, gon_text)
+      IO.foreach(head_file) do |line|
+        IO.write(tmp_file, line, mode: "a")
+      end
+      FileUtils.mv(tmp_file, head_file)
     end
-    FileUtils.mv(tmp_file, head_file)
   end
 end
