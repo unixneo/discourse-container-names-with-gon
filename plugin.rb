@@ -1,6 +1,6 @@
 # name: discourse-container-names-with-gon
 # about: plugin to add container names or ids from yml to backup page
-# version: 0.1.44
+# version: 0.1.45
 # date: 5 Dec 2020
 # authors: Neo
 # url: https://github.com/unixneo/discourse-container-names-with-gon
@@ -12,7 +12,7 @@ require "gon"
 
 Gon.global.test = "HELLO GON"
 
-require File.expand_path("../app/lib/set_gon_info.rb", __FILE__)
+require_relative "./app/lib/set_gon_info"
 
 after_initialize do
   GonLayoutChanges.add_gon_to_head
