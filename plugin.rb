@@ -12,7 +12,7 @@ require "gon"
 
 Gon.global.test = "HELLO GON"
 
-load File.expand_path ("../app/lib/set_gon_info.rb", __FILE__)
+load File.expand_path("../app/lib/set_gon_info.rb", __FILE__)
 
 after_initialize do
   GonLayoutChanges.add_gon_to_head
