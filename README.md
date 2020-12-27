@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### version 0.1.42
+### version 0.1.5
 
 ## Current Status
 
@@ -18,7 +18,9 @@ DISCOURSE_CONTAINER_DATA = "your_data_container_name"
 However, the two environmental variables above are not required because the container names are derived from another Discourse system environmental variable in this version of the plugin:  
 
 ```
-ENV["DATA_NAME"]
+ENV["DISCOURSE_DB_HOST"].upcase
+data_env = data_container + "_NAME"
+ENV[data_env]
 ```
 
 In addition, this plugin displays partial disk space information using the ```df``` command inside the container.
@@ -39,6 +41,7 @@ https://meta.discourse.org/t/discourse-container-names-with-gon-for-sys-admins-a
 
 ## Version Info
 
+- v0.1.5: 27 December fix issue with ENV var (more generic) when data container is not named "data".
 - v0.1.4: 4 December rename plugin and move gon logic to plugin (not pups).
 - v0.1.0: 23 November 2020 Refactor lib classes.
 - v0.0.9.56: 22 November 2020 test new logic using ENV["DATA_NAME"] and 'df' extending Admin controller.

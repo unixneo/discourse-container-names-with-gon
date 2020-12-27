@@ -14,11 +14,16 @@ class GetContainerInfo
         container_data = "DISCOURSE_CONTAINER_DATA not set."
       end
     else
-      if !ENV["DATA_NAME"].present?
+      if ENV["DISCOURSE_DB_HOST"].present?
+        data_container = ENV["DISCOURSE_DB_HOST"].upcase
+        data_env = data_container + "_NAME"
+      end
+
+      if !ENV[data_env].present?
         container_main = "unknown"
         container_data = "unknown"
       else
-        container = ENV["DATA_NAME"].split("/")
+        container = ENV[data_env].split("/")
         if container.size > 2
           container_main = container[1].chomp
           container_data = container[2].chomp
