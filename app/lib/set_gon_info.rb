@@ -47,16 +47,20 @@ class GetContainerInfo
   end
 
   def self.diskspace
-    raw = `df | grep shared`
-    if raw.length.present?
-      df = raw.split(" ")
-      if df.size > 5
-        Gon.global.diskspace = "#{df[0]}  #{df[4]}  #{df[5]}"
+    if ENV["RAILS_ENV"] == "production"
+      raw = `df | grep shared`
+      if raw.length.present?
+        df = raw.split(" ")
+        if df.size > 5
+          Gon.global.diskspace = "#{df[0]}  #{df[4]}  #{df[5]}"
+        else
+          Gon.global.diskspace = "unknown"
+        end
       else
         Gon.global.diskspace = "unknown"
       end
     else
-      Gon.global.diskspace = "unknown"
+      Gon.global.diskspace = "dev"
     end
   end
 end

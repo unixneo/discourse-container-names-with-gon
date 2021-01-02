@@ -1,6 +1,6 @@
 # name: discourse-container-names-with-gon
 # about: plugin to add container names or ids from yml to backup page
-# version: 0.1.7
+# version: 0.1.71
 # date: 2 Jan 2021
 # authors: Neo
 # url: https://github.com/unixneo/discourse-container-names-with-gon
