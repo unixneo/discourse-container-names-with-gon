@@ -7,7 +7,7 @@
 
 register_asset "stylesheets/common/container-names.scss"
 
-gem "gon", "6.2.0"
+gem 'gon', '~> 6.2'
 require "gon"
 
 load File.expand_path("../app/lib/set_gon_info.rb", __FILE__)
