@@ -10,7 +10,7 @@ register_asset "stylesheets/common/container-names.scss"
 gem 'gon', '6.2.0'
 require "gon"
 
-register_asset 'javascripts/containernames.js'
+register_asset 'lib/containernames.js'
 load File.expand_path("../app/lib/set_gon_info.rb", __FILE__)
 
 after_initialize do
