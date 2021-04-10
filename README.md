@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### version 0.1.6
+### version 0.1.86
 
 ## Current Status
 
@@ -41,7 +41,8 @@ https://meta.discourse.org/t/discourse-container-names-with-gon-for-sys-admins-a
 
 ## Version Info
 
-- v0.1.6: 2 Jan 2020, limit to production ENV.
+- v0.1.86: 10 April 2021, changed JS to plain old JS (removed jQuery).
+- v0.1.6: 2 Jan 2021, limit to production ENV.
 - v0.1.5: 27 December fix issue with ENV var (more generic) when data container is not named "data".
 - v0.1.4: 4 December rename plugin and move gon logic to plugin (not pups).
 - v0.1.0: 23 November 2020 Refactor lib classes.
