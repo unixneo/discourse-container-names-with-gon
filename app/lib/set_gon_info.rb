@@ -68,6 +68,23 @@ class GetContainerInfo
     end
   end
 
+  def self.load_average
+    if SiteSetting.enable_container_names_with_gon?
+      if ENV["RAILS_ENV"] == "production"
+        raw = `uptime`
+        if raw.length.present?
+          load_avg = raw.split("load average:").last.strip
+          Gon.global.load_average = load_avg
+        else
+          Gon.global.load_average = "unknown"
+        end
+      else
+        Gon.global.load_average = "dev"
+      end
+    end
+  end
+
+
 end
 
 class GonLayoutChanges
