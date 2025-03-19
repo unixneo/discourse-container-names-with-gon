@@ -20,12 +20,14 @@ after_initialize do
   GonLayoutChanges.add_gon_to_head
   GetContainerInfo.names
   GetContainerInfo.diskspace
+  GetContainerInfo.load_average
 
   Admin::AdminController.class_eval do
     before_action :do_info
 
     def do_info
       GetContainerInfo.diskspace
+      GetContainerInfo.load_average
     end
   end
 end
