@@ -17,8 +17,16 @@
 
   .container-names-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 500px) {
+      grid-template-columns: 1fr;
+    }
   }
 
   .container-info-item {
@@ -39,7 +47,9 @@
       font-family: var(--d-font-family--monospace);
       font-size: 0.95em;
       color: var(--primary);
-      word-break: break-all;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
