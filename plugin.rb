@@ -2,7 +2,7 @@
 
 # name: discourse-container-names-with-gon
 # about: Plugin to display container names, disk space, and load average to admin users
-# version: 1.2.6
+# version: 1.2.7
 # date: 15 February 2026
 # authors: Neo (original), Updated for Discourse 2026
 # url: https://github.com/unixneo/discourse-container-names-with-gon
@@ -102,7 +102,6 @@ after_initialize do
   end
 
   # Lightweight endpoint for fetching just the load average (for auto-refresh)
-  add_admin_route "container_names.title", "container-names"
 
   module ::DiscourseContainerNames
     class Engine < ::Rails::Engine
