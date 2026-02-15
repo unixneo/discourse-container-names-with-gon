@@ -14,20 +14,50 @@ export default apiInitializer("1.0.0", (api) => {
     return;
   }
 
-  // Add container info display to admin backups page
-  api.onPageChange((url) => {
-    if (url.includes("/admin/backups") || url.includes("/admin/dashboard")) {
-      insertContainerInfo();
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  async function fetchContainerInfo() {
+    try {
+      const response = await ajax("/admin/plugins/container-names/info");
+      return response;
+    } catch (error) {
+      console.error("Container Names Plugin: Error fetching container info:", error);
+      // Fall back to site data if endpoint fails
+      const site = api.container.lookup("service:site");
+      if (site.container_info) {
+        return {
+          container_info: site.container_info,
+          timestamp: null
+        };
+      }
+      return null;
     }
-  });
+  }
 
-  function createContainerInfoHTML(data) {
-    const timestamp = data.timestamp
-      ? new Date(data.timestamp).toLocaleString()
-      : new Date().toLocaleString();
+  function createContainerInfoElement(data, isLoading = false) {
+    const container = document.createElement("div");
+    container.className = "container-names-info";
+    container.id = "container-names-widget";
 
-    return `
-      <div class="container-names-info" id="container-names-widget">
+    if (isLoading) {
+      container.innerHTML = `
+        <div class="container-names-title">
+          <span>${I18n.t("container_names.title")}</span>
+        </div>
+        <div style="padding: 20px; text-align: center;">
+          ${I18n.t("container_names.loading")}
+        </div>
+      `;
+    } else if (data) {
+      const timestamp = data.timestamp
+        ? new Date(data.timestamp).toLocaleString()
+        : new Date().toLocaleString();
+
+      container.innerHTML = `
         <div class="container-names-title">
           <span>${I18n.t("container_names.title")}</span>
           <button class="btn btn-small container-names-refresh" id="refresh-container-info">
@@ -55,112 +85,14 @@ export default apiInitializer("1.0.0", (api) => {
         <div class="container-names-timestamp">
           ${I18n.t("container_names.last_updated")}: ${timestamp}
         </div>
-      </div>
-    `;
+      `;
+    }
+
+    return container;
   }
 
-  function escapeHtml(text) {
-    const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
-  }
-
-  async function fetchContainerInfo() {
-    try {
-      const response = await ajax("/admin/plugins/container-names/info");
-      return response;
-    } catch (error) {
-      console.error("Error fetching container info:", error);
-      // Fall back to site data if endpoint fails
-      const site = api.container.lookup("service:site");
-      if (site.container_info) {
-        return {
-          container_info: site.container_info,
-          timestamp: null
-        };
-      }
-      return null;
-    }
-  }
-
-  async function insertContainerInfo() {
-    // Wait for the admin content to be rendered
-    await new Promise((resolve) => setTimeout(resolve, 100));
-
-    // Don't insert if already present
-    if (document.getElementById("container-names-widget")) {
-      return;
-    }
-
-    // Find the appropriate insertion point
-    let insertPoint = null;
-
-    // For backups page, insert at the top of the admin content
-    const backupsContainer = document.querySelector(".admin-backups");
-    if (backupsContainer) {
-      insertPoint = backupsContainer;
-    }
-
-    // For dashboard, insert in the admin main area
-    if (!insertPoint) {
-      const adminContent = document.querySelector(".admin-contents");
-      if (adminContent) {
-        insertPoint = adminContent;
-      }
-    }
-
-    if (!insertPoint) {
-      return;
-    }
-
-    // Create loading placeholder
-    const placeholder = document.createElement("div");
-    placeholder.id = "container-names-widget";
-    placeholder.className = "container-names-info";
-    placeholder.innerHTML = `
-      <div class="container-names-title">
-        <span>${I18n.t("container_names.title")}</span>
-      </div>
-      <div style="padding: 20px; text-align: center;">
-        ${I18n.t("container_names.loading")}
-      </div>
-    `;
-
-    insertPoint.insertBefore(placeholder, insertPoint.firstChild);
-
-    // Fetch and display container info
-    const data = await fetchContainerInfo();
-
-    if (data) {
-      placeholder.outerHTML = createContainerInfoHTML(data);
-
-      // Add refresh button handler
-      const refreshBtn = document.getElementById("refresh-container-info");
-      if (refreshBtn) {
-        refreshBtn.addEventListener("click", async (e) => {
-          e.preventDefault();
-          refreshBtn.classList.add("loading");
-          refreshBtn.textContent = I18n.t("container_names.loading");
-
-          const newData = await fetchContainerInfo();
-          if (newData) {
-            const widget = document.getElementById("container-names-widget");
-            if (widget) {
-              widget.outerHTML = createContainerInfoHTML(newData);
-              // Re-attach event listener
-              attachRefreshHandler();
-            }
-          }
-
-          refreshBtn.classList.remove("loading");
-          refreshBtn.textContent = I18n.t("container_names.refresh");
-        });
-      }
-    }
-  }
-
-  function attachRefreshHandler() {
-    const refreshBtn = document.getElementById("refresh-container-info");
+  function attachRefreshHandler(container) {
+    const refreshBtn = container.querySelector("#refresh-container-info");
     if (refreshBtn) {
       refreshBtn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -169,16 +101,93 @@ export default apiInitializer("1.0.0", (api) => {
 
         const newData = await fetchContainerInfo();
         if (newData) {
-          const widget = document.getElementById("container-names-widget");
-          if (widget) {
-            widget.outerHTML = createContainerInfoHTML(newData);
-            attachRefreshHandler();
-          }
+          const newContainer = createContainerInfoElement(newData);
+          container.replaceWith(newContainer);
+          attachRefreshHandler(newContainer);
+        } else {
+          refreshBtn.classList.remove("loading");
+          refreshBtn.textContent = I18n.t("container_names.refresh");
         }
-
-        refreshBtn.classList.remove("loading");
-        refreshBtn.textContent = I18n.t("container_names.refresh");
       });
     }
   }
+
+  async function insertContainerInfo() {
+    // Wait for the admin content to be rendered
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
+    // Don't insert if already present
+    if (document.getElementById("container-names-widget")) {
+      return;
+    }
+
+    // Find the appropriate insertion point - try multiple selectors for different Discourse versions
+    let insertPoint = null;
+    let insertMethod = "prepend"; // default to prepend
+
+    // Modern Discourse 2026+ selectors
+    const selectors = [
+      // Admin dashboard (2026+) - after the page header
+      { selector: ".admin-dashboard .d-page-header", method: "after" },
+      // Admin dashboard content area
+      { selector: ".admin-dashboard .admin-config-page__main-area", method: "prepend" },
+      // Admin backups page
+      { selector: ".admin-backups", method: "prepend" },
+      // Fallback: any admin main content area
+      { selector: ".admin-main-content", method: "prepend" },
+      // Older Discourse selectors
+      { selector: ".admin-contents", method: "prepend" },
+      { selector: ".admin-container", method: "prepend" },
+      // Generic admin area
+      { selector: "[class*='admin-dashboard']", method: "prepend" }
+    ];
+
+    for (const { selector, method } of selectors) {
+      const element = document.querySelector(selector);
+      if (element) {
+        insertPoint = element;
+        insertMethod = method;
+        break;
+      }
+    }
+
+    if (!insertPoint) {
+      console.log("Container Names Plugin: Could not find insertion point on this page");
+      return;
+    }
+
+    // Create loading placeholder
+    const placeholder = createContainerInfoElement(null, true);
+
+    if (insertMethod === "after") {
+      insertPoint.after(placeholder);
+    } else {
+      insertPoint.prepend(placeholder);
+    }
+
+    // Fetch and display container info
+    const data = await fetchContainerInfo();
+
+    if (data) {
+      const container = createContainerInfoElement(data);
+      placeholder.replaceWith(container);
+      attachRefreshHandler(container);
+    } else {
+      placeholder.innerHTML = `
+        <div class="container-names-title">
+          <span>${I18n.t("container_names.title")}</span>
+        </div>
+        <div style="padding: 20px; text-align: center; color: var(--danger);">
+          Error loading container info
+        </div>
+      `;
+    }
+  }
+
+  // Listen for page changes to admin areas
+  api.onPageChange((url) => {
+    if (url.includes("/admin/backups") || url.includes("/admin/dashboard") || url === "/admin" || url === "/admin/") {
+      insertContainerInfo();
+    }
+  });
 });
