@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### Version 1.2.7 (Updated for Discourse 2026)
+### Version 1.2.8 (Updated for Discourse 2026)
 
 ## Overview
 

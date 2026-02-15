@@ -2,7 +2,7 @@
 
 # name: discourse-container-names-with-gon
 # about: Plugin to display container names, disk space, and load average to admin users
-# version: 1.2.7
+# version: 1.2.8
 # date: 15 February 2026
 # authors: Neo (original), Updated for Discourse 2026
 # url: https://github.com/unixneo/discourse-container-names-with-gon
