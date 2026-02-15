@@ -1,26 +1,28 @@
 # discourse-container-names-with-gon
 
-### Version 1.0.0 (Updated for Discourse 2026)
+### Version 1.2.3 (Updated for Discourse 2026)
 
 ## Overview
 
-This Discourse plugin displays Docker container information to admin users in the admin area (Backups page and Dashboard). Information shown includes:
+This Discourse plugin displays Docker container information to admin/staff users in the admin area (Dashboard and Backups pages). Information shown includes:
 
 - Main container name
 - Data container name
 - Disk space usage
 - System load average
 
-## What's New in v1.0.0
+![Container Information Widget](https://community.unix.com/uploads/default/original/2X/container-info-screenshot.png)
+
+## What's New in v1.2.x
 
 This is a complete rewrite of the original plugin to work with modern Discourse (2025/2026):
 
 - **Removed the gon gem dependency** - No longer requires the gon gem or modifying core Discourse files
 - **Uses Discourse's native serializer API** - Data is passed to the frontend using `add_to_serializer`
 - **Modern JavaScript** - Uses the new `api-initializers` pattern instead of deprecated script tags
-- **Custom admin endpoint** - Fresh data can be fetched via `/admin/plugins/container-names/info`
-- **Improved UI** - Modern styling that respects Discourse's theme variables
+- **Improved UI** - Modern grid layout with theme-aware styling (works with light/dark modes)
 - **Better error handling** - Graceful fallbacks when system commands fail
+- **Responsive design** - Adapts to different screen sizes
 
 ## Configuration
 
@@ -62,36 +64,15 @@ Then rebuild your container:
 
 ## Usage
 
-Once installed and enabled:
+Once installed:
 
-1. Navigate to **Admin → Backups** or **Admin → Dashboard**
-2. You'll see a "Container Information" box at the top of the page
-3. Click "Refresh" to fetch the latest container information
+1. Enable the plugin in **Admin → Settings** (search for "container names")
+2. Navigate to **Admin → Dashboard** or **Admin → Backups**
+3. You'll see the "Container Information" widget at the top of the page
 
 ## Settings
 
-- **enable_container_names_with_gon** - Enable or disable the plugin (default: enabled)
-
-## API Endpoint
-
-Admins can fetch container info programmatically:
-
-```
-GET /admin/plugins/container-names/info
-```
-
-Response:
-```json
-{
-  "container_info": {
-    "container_main": "app_container_name",
-    "container_data": "data_container_name",
-    "diskspace": "/dev/sda1  85%  /shared",
-    "load_average": "0.42, 0.38, 0.35"
-  },
-  "timestamp": "2026-02-15T10:30:00Z"
-}
-```
+- **enable_container_names_with_gon** - Enable or disable the plugin (default: disabled)
 
 ## Development vs Production
 
@@ -103,8 +84,8 @@ If you're upgrading from version 0.2.x or earlier, the old `gon` gem dependency 
 
 ## Compatibility
 
-- **Discourse**: 2025.x and later (tested with v2026.1.0)
-- **Ruby**: 3.2+ (uses frozen_string_literal)
+- **Discourse**: 3.2.0 and later (tested with v2026.2.0)
+- **Ruby**: 3.2+
 - **Browser**: Modern browsers with ES6 support
 
 ## Troubleshooting
@@ -118,7 +99,7 @@ If you're upgrading from version 0.2.x or earlier, the old `gon` gem dependency 
 ### Widget doesn't appear
 
 - Ensure you're logged in as an admin or staff member
-- Check that the plugin is enabled in Settings → Plugins
+- Check that the plugin is enabled in Admin → Settings (search for "container")
 - Try refreshing the page or clearing your browser cache
 
 ## License
