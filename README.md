@@ -11,7 +11,8 @@ This Discourse plugin displays Docker container information to admin/staff users
 - Disk space usage
 - System load average
 
-https://community.unix.com/uploads/default/original/3X/f/0/f0b19969ab8d409a617dd9df227be061b743da11.png
+![](https://community.unix.com/uploads/default/original/3X/f/0/f0b19969ab8d409a617dd9df227be061b743da11.png)
+
 
 ## What's New in v1.2.x
 
