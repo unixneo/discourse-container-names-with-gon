@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+*.tmp
+
+# Legacy files (removed in v1.0.0)
+gems/
+app/
+UPGRADE_NOTES.txt

@@ -1,0 +1,11 @@
+en:
+  js:
+    container_names:
+      title: "Container Information"
+      main_container: "Main Container"
+      data_container: "Data Container"
+      diskspace: "Disk Space"
+      load_average: "Load Average"
+      refresh: "Refresh"
+      loading: "Loading..."
+      last_updated: "Last Updated"

@@ -1,0 +1,7 @@
+# This file specifies version compatibility for older Discourse installations
+# Format: discourse_version: plugin_git_ref
+#
+# For this modernized plugin, we require Discourse 3.2+
+# Older versions should use the legacy gon-based implementation from an older commit
+
+# 3.1.99: v0.2.0
