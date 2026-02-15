@@ -14,7 +14,7 @@ export default apiInitializer("1.0.0", (api) => {
     return;
   }
 
-  let refreshInterval = null;
+  let refreshTimer = null;
 
   function escapeHtml(text) {
     const div = document.createElement("div");
@@ -38,9 +38,9 @@ export default apiInitializer("1.0.0", (api) => {
   }
 
   function updateLoadAverage(data) {
-    const loadValueEl = document.querySelector("#container-names-widget .load-average-value");
-    const diskValueEl = document.querySelector("#container-names-widget .disk-space-value");
-    const timestampEl = document.querySelector("#container-names-widget .container-names-timestamp");
+    const loadValueEl = document.querySelector("#container-names-panel .load-average-value");
+    const diskValueEl = document.querySelector("#container-names-panel .disk-space-value");
+    const timestampEl = document.querySelector("#container-names-panel .container-names-timestamp");
 
     if (loadValueEl && data.load_average) {
       loadValueEl.textContent = data.load_average;
@@ -57,14 +57,14 @@ export default apiInitializer("1.0.0", (api) => {
   }
 
   function createContainerInfoElement(data) {
-    const container = document.createElement("div");
-    container.className = "container-names-info";
-    container.id = "container-names-widget";
+    const panel = document.createElement("div");
+    panel.className = "container-names-info";
+    panel.id = "container-names-panel";
 
     if (data) {
       const timestamp = new Date().toLocaleString();
 
-      container.innerHTML = `
+      panel.innerHTML = `
         <div class="container-names-title">
           <span>${I18n.t("container_names.title")}</span>
         </div>
@@ -91,7 +91,7 @@ export default apiInitializer("1.0.0", (api) => {
         </div>
       `;
     } else {
-      container.innerHTML = `
+      panel.innerHTML = `
         <div class="container-names-title">
           <span>${I18n.t("container_names.title")}</span>
         </div>
@@ -101,7 +101,7 @@ export default apiInitializer("1.0.0", (api) => {
       `;
     }
 
-    return container;
+    return panel;
   }
 
   function startAutoRefresh() {
@@ -109,12 +109,11 @@ export default apiInitializer("1.0.0", (api) => {
 
     const refreshSeconds = siteSettings.container_names_refresh_seconds || 30;
     if (refreshSeconds < 10) {
-      return; // Disabled or too low
+      return;
     }
 
-    refreshInterval = setInterval(async () => {
-      // Only refresh if widget is still visible
-      if (!document.getElementById("container-names-widget")) {
+    refreshTimer = setInterval(async () => {
+      if (!document.getElementById("container-names-panel")) {
         stopAutoRefresh();
         return;
       }
@@ -127,18 +126,16 @@ export default apiInitializer("1.0.0", (api) => {
   }
 
   function stopAutoRefresh() {
-    if (refreshInterval) {
-      clearInterval(refreshInterval);
-      refreshInterval = null;
+    if (refreshTimer) {
+      clearInterval(refreshTimer);
+      refreshTimer = null;
     }
   }
 
   async function insertContainerInfo() {
-    // Wait for the page to render
     await new Promise((resolve) => setTimeout(resolve, 300));
 
-    // Don't insert if already present
-    if (document.getElementById("container-names-widget")) {
+    if (document.getElementById("container-names-panel")) {
       startAutoRefresh();
       return;
     }
@@ -148,7 +145,6 @@ export default apiInitializer("1.0.0", (api) => {
       return;
     }
 
-    // Find insertion point - try multiple selectors
     const selectors = [
       ".admin-backups",
       ".admin-dashboard",
@@ -171,14 +167,12 @@ export default apiInitializer("1.0.0", (api) => {
       return;
     }
 
-    const widget = createContainerInfoElement(data);
-    insertPoint.insertBefore(widget, insertPoint.firstChild);
+    const panel = createContainerInfoElement(data);
+    insertPoint.insertBefore(panel, insertPoint.firstChild);
 
-    // Start auto-refresh
     startAutoRefresh();
   }
 
-  // Listen for page changes
   api.onPageChange((url) => {
     if (url.includes("/admin/backups") || url.includes("/admin/dashboard") || url === "/admin" || url === "/admin/") {
       insertContainerInfo();
@@ -187,7 +181,6 @@ export default apiInitializer("1.0.0", (api) => {
     }
   });
 
-  // Cleanup on app destroy
   api.cleanupStream(() => {
     stopAutoRefresh();
   });
