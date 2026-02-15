@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### Version 1.2.3 (Updated for Discourse 2026)
+### Version 1.2.5 (Updated for Discourse 2026)
 
 ## Overview
 
@@ -23,6 +23,7 @@ This is a complete rewrite of the original plugin to work with modern Discourse 
 - **Improved UI** - Modern grid layout with theme-aware styling (works with light/dark modes)
 - **Better error handling** - Graceful fallbacks when system commands fail
 - **Responsive design** - Adapts to different screen sizes
+- **Auto-refresh** - Load average and disk space update automatically (configurable interval)
 
 ## Configuration
 
@@ -73,6 +74,7 @@ Once installed:
 ## Settings
 
 - **enable_container_names_with_gon** - Enable or disable the plugin (default: disabled)
+- **container_names_refresh_seconds** - Auto-refresh interval for load average in seconds (10-300, default: 30)
 
 ## Development vs Production
 

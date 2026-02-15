@@ -2,7 +2,7 @@
 
 # name: discourse-container-names-with-gon
 # about: Plugin to display container names, disk space, and load average to admin users
-# version: 1.2.4
+# version: 1.2.5
 # date: 15 February 2026
 # authors: Neo (original), Updated for Discourse 2026
 # url: https://github.com/unixneo/discourse-container-names-with-gon
@@ -99,5 +99,36 @@ after_initialize do
     return nil unless SiteSetting.enable_container_names_with_gon
 
     ::DiscourseContainerNames.container_info
+  end
+
+  # Lightweight endpoint for fetching just the load average (for auto-refresh)
+  add_admin_route "container_names.title", "container-names"
+
+  module ::DiscourseContainerNames
+    class Engine < ::Rails::Engine
+      engine_name "discourse_container_names"
+      isolate_namespace DiscourseContainerNames
+    end
+
+    class LoadAverageController < ::ApplicationController
+      requires_plugin PLUGIN_NAME
+      before_action :ensure_staff
+
+      def show
+        render json: {
+          load_average: ::DiscourseContainerNames.load_average,
+          diskspace: ::DiscourseContainerNames.diskspace,
+          timestamp: Time.now.iso8601
+        }
+      end
+    end
+  end
+
+  DiscourseContainerNames::Engine.routes.draw do
+    get "/load" => "load_average#show"
+  end
+
+  Discourse::Application.routes.append do
+    mount ::DiscourseContainerNames::Engine, at: "/admin/plugins/container-names"
   end
 end
