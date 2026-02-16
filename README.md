@@ -70,7 +70,7 @@ Once installed:
 
 1. Enable the plugin in **Admin → Settings** (search for "container names")
 2. Navigate to **Admin → Dashboard** or **Admin → Backups**
-3. You'll see the "Container Information" widget at the top of the page
+3. You'll see "Container Information"  at the top of the page
 
 ## Settings
 
@@ -99,7 +99,7 @@ If you're upgrading from version 0.2.x or earlier, the old `gon` gem dependency 
 - Verify the `df` and `uptime` commands are available in your container
 - Check the Rails logs for any error messages from the plugin
 
-### Widget doesn't appear
+### INfo doesn't appear
 
 - Ensure you're logged in as an admin or staff member
 - Check that the plugin is enabled in Admin → Settings (search for "container")
