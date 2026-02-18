@@ -181,7 +181,4 @@ export default apiInitializer("1.0.0", (api) => {
     }
   });
 
-  api.cleanupStream(() => {
-    stopAutoRefresh();
-  });
 });

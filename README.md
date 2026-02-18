@@ -1,6 +1,6 @@
 # discourse-container-names-with-gon
 
-### Version 1.2.8 (Updated for Discourse 2026 by Anthropic Claude)
+### Version 1.2.10 (Updated for Discourse 2026 by Anthropic Claude)
 
 ## Overview
 
@@ -13,6 +13,10 @@ This Discourse plugin displays Docker container information to admin/staff users
 
 ![](https://community.unix.com/uploads/default/original/3X/f/0/f0b19969ab8d409a617dd9df227be061b743da11.png)
 
+
+## What's New in v1.2.10
+
+- **Fixed admin notice** - Removed deprecated `api.cleanupStream()` call which triggered the `discourse.widgets-decommissioned` admin warning in modern Discourse. Cleanup is handled entirely by `api.onPageChange`.
 
 ## What's New in v1.2.x
 
